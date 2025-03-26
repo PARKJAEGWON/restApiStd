@@ -36,22 +36,34 @@ public class ApiV1ArticleController {
     }
 
     @GetMapping("/{id}")
-    public String getArticle() {
-        return "단건";
+    public ArticleDto getArticle(@PathVariable("id") Long id) {
+
+        System.out.println(id);
+        Article article = new Article("제목이야","내용이야");
+
+        ArticleDto articleDto = new ArticleDto(article);
+
+        return articleDto;
     }
 
     @PostMapping
-    public String create() {
+    public String create(@RequestParam("subject")String subject,@RequestParam("content")String content) {
+        System.out.println(subject);
+        System.out.println(content);
         return "생성";
     }
 
     @PatchMapping("{id}")
-    public String modify() {
+    public String modify(@PathVariable("id")Long id, @RequestParam("subject")String subject,@RequestParam("content")String content) {
+        System.out.println(id);
+        System.out.println(subject);
+        System.out.println(content);
         return "수정";
     }
 
     @DeleteMapping("{id}")
-    public String delete() {
+    public String delete(@PathVariable("id")Long id) {
+        System.out.println(id);
         return "삭제";
     }
 }
