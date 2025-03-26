@@ -1,26 +1,28 @@
 package com.example.demo.article.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import com.example.demo.article.entity.Article;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class ArticleDto {
+    //final 최초의 한번 무조건 초기화 해준다는 의미
+    private final Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final String subject;
 
-    private String subject;
-    private String content;
+    private final  String content;
 
+    private final LocalDateTime createDate;
 
-    @CreatedDate
-    private LocalDateTime createDate;
+    private final LocalDateTime modifiedDate;
 
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
+    public ArticleDto(Article article){
+        this.id             = article.getId();
+        this.subject        = article.getSubject();
+        this.content        = article.getContent();
+        this.createDate     = article.getCreateDate();
+        this.modifiedDate   = article.getModifiedDate();
+    }
 }
