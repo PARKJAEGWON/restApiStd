@@ -34,6 +34,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("org.springframework.boot:spring-boot-starter-validation")//@RequestBody를 쓰려면 필요함 유효성검사에 필요한거임
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")//스웨거
+
 
 }
 
