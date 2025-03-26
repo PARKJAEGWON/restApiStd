@@ -1,14 +1,14 @@
 package com.example.demo.article.controller;
 
 import com.example.demo.article.dto.ArticleDto;
+import com.example.demo.article.dto.request.ArticleCreateRequest;
+import com.example.demo.article.dto.request.ArticleModifyRequest;
+import com.example.demo.article.dto.respose.ArticleResponse;
+import com.example.demo.article.dto.respose.ArticlesResponse;
 import com.example.demo.article.entity.Article;
 import com.example.demo.article.service.ArticleService;
 import com.example.demo.global.Rsdata.RsData;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +21,6 @@ import java.util.List;
 public class ApiV1ArticleController {
 
     private final ArticleService articleService;
-
-    @AllArgsConstructor
-    @Getter
-    public static class ArticlesResponse{
-        private final List<ArticleDto> articleList;
-    }
 
     @GetMapping
     public RsData<ArticlesResponse> list() {
@@ -49,12 +43,6 @@ public class ApiV1ArticleController {
         return RsData.of("200","메세지 목록 조회 성공",articleResponse);
     }
 
-    @Getter
-    @AllArgsConstructor
-    public static class ArticleResponse{
-        private final  ArticleDto article;
-    }
-
     @GetMapping("/{id}")
     public RsData<ArticleResponse> getArticle(@PathVariable("id") Long id) {
 
@@ -66,29 +54,18 @@ public class ApiV1ArticleController {
         return RsData.of("200","게시글 단건 조회 성공", new ArticleResponse(articleDto));
     }
 
-    @Data
-    public static class ArticleRequest{
-        @NotBlank
-        private String subject;
-        @NotBlank
-        private String content;
-    }
-
     @PostMapping
-    public String create(@Valid @RequestBody ArticleRequest articleRequest) {
-        System.out.println(articleRequest.content);
-        System.out.println(articleRequest.subject);
+    public String create(@Valid @RequestBody ArticleCreateRequest articleCreateRequest) {
+        System.out.println(articleCreateRequest.getContent());
+        System.out.println(articleCreateRequest.getSubject());
         return "생성";
     }
 
-
-
-
     @PatchMapping("{id}")
-    public String modify(@PathVariable("id")Long id,@Valid @RequestBody ArticleRequest articleRequest) {
+    public String modify(@PathVariable("id")Long id, @Valid @RequestBody ArticleModifyRequest articleModifyRequest) {
         System.out.println(id);
-        System.out.println(articleRequest.subject);
-        System.out.println(articleRequest.content);
+        System.out.println(articleModifyRequest.getSubject());
+        System.out.println(articleModifyRequest.getContent());
         return "수정";
     }
 
